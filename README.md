@@ -1,7 +1,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Holistic Medical Supply — Elite Sales Program</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,6 +30,7 @@
 
         html {
             scroll-behavior: smooth;
+            height: -webkit-fill-available;
         }
 
         body {
@@ -35,6 +39,9 @@
             color: var(--ink);
             line-height: 1.6;
             overflow-x: hidden;
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
         }
 
         /* Noise texture overlay */
@@ -54,6 +61,7 @@
         /* Hero Section */
         .hero {
             min-height: 100vh;
+            min-height: 100dvh; /* Dynamic viewport height for mobile */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -63,6 +71,12 @@
             position: relative;
             background: linear-gradient(135deg, var(--ink) 0%, #1a1a2e 50%, #16213e 100%);
             overflow: hidden;
+        }
+
+        @supports (-webkit-touch-callout: none) {
+            .hero {
+                min-height: -webkit-fill-available;
+            }
         }
 
         .hero::before {
@@ -207,6 +221,7 @@
             z-index: 100;
             background: var(--glass);
             backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--divider);
             padding: 1rem 2rem;
         }
@@ -218,6 +233,14 @@
             justify-content: center;
             gap: 0.5rem;
             flex-wrap: wrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .nav-inner::-webkit-scrollbar {
+            display: none;
         }
 
         .nav a {
@@ -585,29 +608,347 @@
             color: var(--gold);
         }
 
-        /* Responsive */
+        /* Responsive - Tablet */
+        @media (max-width: 1024px) {
+            main {
+                padding: 3rem 1.5rem;
+            }
+
+            .callout {
+                padding: 2.5rem;
+            }
+
+            .card-grid.cols-3 {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+
+        /* Responsive - Mobile */
         @media (max-width: 768px) {
+            .hero {
+                min-height: 100svh; /* Use small viewport height for mobile browsers */
+                padding: 1.5rem;
+                padding-top: 3rem;
+            }
+
+            .hero h1 {
+                font-size: clamp(3rem, 15vw, 5rem);
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            }
+
             .hero-stats {
-                gap: 2rem;
+                gap: 1.5rem;
+                width: 100%;
+            }
+
+            .stat {
+                flex: 1;
+                min-width: 80px;
+            }
+
+            .stat-value {
+                font-size: 2.5rem;
+            }
+
+            .stat-label {
+                font-size: 0.7rem;
+            }
+
+            .hero-badge {
+                font-size: 0.75rem;
+                padding: 0.4rem 1rem;
+            }
+
+            /* Navigation Mobile */
+            .nav {
+                padding: 0.75rem 1rem;
+            }
+
+            .nav-inner {
+                gap: 0.25rem;
+            }
+
+            .nav a {
+                padding: 0.4rem 0.6rem;
+                font-size: 0.75rem;
+            }
+
+            /* Main Content Mobile */
+            main {
+                padding: 2rem 1rem;
             }
             
             .section-header {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 0.5rem;
+                gap: 0.25rem;
+                margin-bottom: 2rem;
             }
 
             .section-number {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+
+            /* Cards Mobile */
+            .card-grid {
+                gap: 1rem;
+            }
+
+            .card-grid.cols-2,
+            .card-grid.cols-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+
+            .card-title {
+                font-size: 1.5rem;
+            }
+
+            .card-value {
                 font-size: 2.5rem;
             }
 
+            /* Commission Table Mobile */
             .commission-table {
-                font-size: 0.875rem;
+                font-size: 0.8rem;
+                display: block;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
             }
 
             .commission-table th,
             .commission-table td {
+                padding: 0.875rem 0.75rem;
+                white-space: nowrap;
+            }
+
+            .rate-badge {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.85rem;
+            }
+
+            /* Info Block Mobile */
+            .info-block {
+                padding: 1.5rem;
+            }
+
+            .info-block h4 {
+                font-size: 1.25rem;
+            }
+
+            /* Timeline Mobile */
+            .timeline {
+                padding-left: 1.5rem;
+            }
+
+            .timeline-item {
+                padding-left: 1.5rem;
+            }
+
+            .timeline-item::before {
+                left: -1.5rem;
+                width: 10px;
+                height: 10px;
+                transform: translateX(-4px);
+            }
+
+            .timeline-title {
+                font-size: 0.95rem;
+            }
+
+            .timeline-content {
+                font-size: 0.875rem;
+            }
+
+            /* Callout Mobile */
+            .callout {
+                padding: 2rem 1.5rem;
+                margin: 3rem 0;
+                border-radius: 16px;
+            }
+
+            .callout h3 {
+                font-size: 1.75rem;
+            }
+
+            .callout p {
+                font-size: 1rem;
+            }
+
+            /* Transition Visual Mobile */
+            .transition-visual {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .transition-month {
+                flex: 1 1 calc(50% - 0.5rem);
+                min-width: calc(50% - 0.5rem);
+                padding: 1rem 0.75rem;
+            }
+
+            .transition-value {
+                font-size: 1.5rem;
+            }
+
+            /* Quick Facts Mobile */
+            .quick-facts {
+                grid-template-columns: repeat(2, 1fr);
+                margin: 2rem 0;
+            }
+
+            .quick-fact {
                 padding: 1rem;
+            }
+
+            .quick-fact-value {
+                font-size: 1.25rem;
+            }
+
+            /* Check List Mobile */
+            .check-list li {
+                padding: 0.6rem 0;
+                padding-left: 1.75rem;
+                font-size: 0.9rem;
+            }
+
+            /* Warning Box Mobile */
+            .warning-box {
+                padding: 1.25rem;
+                font-size: 0.9rem;
+            }
+
+            /* Footer Mobile */
+            footer {
+                padding: 3rem 1.5rem;
+            }
+
+            .footer-logo {
+                font-size: 1.5rem;
+            }
+
+            .footer-cta {
+                padding: 0.875rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .scroll-indicator {
+                bottom: 1.5rem;
+            }
+        }
+
+        /* Small Mobile */
+        @media (max-width: 380px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .stat {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .stat-value {
+                font-size: 2rem;
+            }
+
+            .stat-label {
+                text-align: left;
+            }
+
+            .quick-facts {
+                grid-template-columns: 1fr;
+            }
+
+            .transition-month {
+                flex: 1 1 100%;
+            }
+
+            .nav-inner {
+                justify-content: flex-start;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                flex-wrap: nowrap;
+                padding-bottom: 0.5rem;
+            }
+
+            .nav a {
+                flex-shrink: 0;
+            }
+        }
+
+        /* Landscape Mobile */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .hero {
+                min-height: auto;
+                padding: 2rem;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero-stats {
+                margin-top: 1rem;
+            }
+
+            .scroll-indicator {
+                display: none;
+            }
+        }
+
+        /* Large Desktop */
+        @media (min-width: 1400px) {
+            main {
+                max-width: 1400px;
+            }
+
+            .hero h1 {
+                font-size: 12rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.4rem;
+            }
+
+            .stat-value {
+                font-size: 4.5rem;
+            }
+
+            .section-title {
+                font-size: 3rem;
+            }
+
+            .card-grid.cols-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Ultra Wide */
+        @media (min-width: 1800px) {
+            .hero-content {
+                max-width: 1100px;
+            }
+
+            main {
+                max-width: 1600px;
             }
         }
 
@@ -1072,12 +1413,7 @@
             1170 Port Washington Blvd, Port Washington, NY 11050<br>
             Part of Holistec Holdings
         </p>
-        <a href="mailto:careers@holisticmedicalsupply.com" class="footer-cta">
+        <a href="/cdn-cgi/l/email-protection#7c1f1d0e19190e0f3c141310150f08151f111918151f1d100f090c0c1005521f1311" class="footer-cta">
             Apply Now
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-        </a>
-    </footer>
-</body>
-</html>
